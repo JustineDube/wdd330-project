@@ -1,3 +1,7 @@
 https://trello.com/b/9PNEYIOF/sleep-outside-team-03
 
+<<<<<<< HEAD
 Justine Dube
+=======
+Justine Dube
+>>>>>>> a3856854892b1dce6bbf27985e7251f88d4e163b
