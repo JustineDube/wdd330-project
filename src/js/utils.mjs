@@ -1,4 +1,5 @@
-// utils.mjs
+// utils.mjs individual
+
 
 /**
  * Retrieves a named parameter from the current URL query string.
