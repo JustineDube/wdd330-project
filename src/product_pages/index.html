@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Detail | SleepOutside</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <header>
+      <a href="../index.html">
+        <img src="../images/noun_Tent_2517.svg" alt="SleepOutside Logo" />
+        <h1>SleepOutside</h1>
+      </a>
+      <nav>
+        <a href="../cart/index.html">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 100 100"
+            height="1.5rem"
+          >
+            <text y=".9em" font-size="90">🛒</text>
+          </svg>
+          <span id="cartCount">0</span>
+        </a>
+      </nav>
+    </header>
+
+    <main class="product-detail-page">
+      <!--
+        This container is intentionally empty.
+        ProductDetails.mjs will render the product HTML here at runtime
+        based on the `?product=<id>` URL parameter.
+      -->
+      <div class="product-detail"></div>
+    </main>
+
+    <footer>
+      <p>© SleepOutside</p>
+    </footer>
+
+    <!-- type="module" is required for ES Module imports to work -->
+    <script type="module" src="../js/product.js"></script>
+  </body>
+</html>
