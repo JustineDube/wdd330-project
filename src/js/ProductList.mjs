@@ -10,7 +10,7 @@ function productCardTemplate(product) {
   return `<li class="product-card">
     <a href="product_pages/?product=${product.Id}">
       <img
-        src="${product.Images.PrimaryMedium}"
+        src="${product.Image}"
         alt="Image of ${product.NameWithoutBrand}"
       />
       <h2 class="card__brand">${product.Brand.Name}</h2>
