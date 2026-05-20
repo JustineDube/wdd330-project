@@ -1,13 +1,17 @@
 // ProductDetails.mjs
-import { setLocalStorage } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage } from "./utils.mjs";
 
 /**
  * Generates the HTML markup for the product detail view.
- * Uses the product object returned from the data source.
- * @param {Object} product - The product data object.
- * @returns {string} HTML string for the product detail section.
+ * Shows discount info if FinalPrice < SuggestedRetailPrice.
  */
 function productDetailsTemplate(product) {
+    const isDiscounted = product.FinalPrice < product.SuggestedRetailPrice;
+    const savings = (product.SuggestedRetailPrice - product.FinalPrice).toFixed(2);
+    const discountPct = Math.round(
+        ((product.SuggestedRetailPrice - product.FinalPrice) / product.SuggestedRetailPrice) * 100
+    );
+
     return `
     <section class="product-detail">
       <h3>${product.Brand.Name}</h3>
@@ -17,7 +21,14 @@ function productDetailsTemplate(product) {
         src="${product.Image}"
         alt="${product.NameWithoutBrand}"
       />
-      <p class="product-card__price">$${product.FinalPrice}</p>
+      <p class="product-card__price">$${product.FinalPrice}
+        ${isDiscounted ? `<span class="product-card__was-price">Was: $${product.SuggestedRetailPrice}</span>` : ''}
+      </p>
+      ${isDiscounted ? `
+        <p class="product-detail__discount">
+          <span class="product-card__discount-badge">Sale ${discountPct}% off</span>
+          You save $${savings}!
+        </p>` : ''}
       <p class="product__color">${product.Colors[0].ColorName}</p>
       <p class="product__description">${product.DescriptionHtmlSimple}</p>
       <div class="product-detail__add">
@@ -26,63 +37,53 @@ function productDetailsTemplate(product) {
     </section>`;
 }
 
-/**
- * ProductDetails class manages fetching and rendering a single product's details,
- * and handles adding that product to the cart via localStorage.
- */
 export default class ProductDetails {
-    /**
-     * @param {string} productId - The ID of the product to display.
-     * @param {Object} dataSource - An instance of ProductData used to fetch product info.
-     */
     constructor(productId, dataSource) {
         this.productId = productId;
         this.product = {};
         this.dataSource = dataSource;
     }
 
-    /**
-     * Initialises the class: fetches product data, renders the HTML, and
-     * attaches the Add to Cart event listener.
-     */
     async init() {
-        // Resolve the product data using the provided id
         this.product = await this.dataSource.findProductById(this.productId);
-
-        // Render the product details into the page
         this.renderProductDetails();
-
-        // Attach the cart button listener after the HTML is in the DOM
-        // .bind(this) ensures that `this` inside addProductToCart refers to
-        // this class instance, not the button element.
         document
             .getElementById("addToCart")
             .addEventListener("click", this.addProductToCart.bind(this));
     }
 
-    /**
-     * Reads the current cart from localStorage, appends the current product,
-     * and saves it back.
-     */
     addProductToCart() {
-        const cartItems = JSON.parse(localStorage.getItem("so-cart")) || [];
+        const cartItems = getLocalStorage("so-cart") || [];
         cartItems.push(this.product);
         setLocalStorage("so-cart", cartItems);
+        // Update cart count badge in header
+        updateCartCount();
     }
 
-    /**
-     * Builds the product detail HTML and inserts it into the
-     * `.product-detail` wrapper element on the page.
-     */
     renderProductDetails() {
         const detailContainer = document.querySelector(".product-detail");
         if (detailContainer) {
             detailContainer.innerHTML = productDetailsTemplate(this.product);
         } else {
-            // Fallback: insert after the first <main> element
             document
                 .querySelector("main")
                 .insertAdjacentHTML("afterbegin", productDetailsTemplate(this.product));
         }
     }
+}
+
+/**
+ * Reads cart from localStorage and updates the superscript badge on the cart icon.
+ */
+export function updateCartCount() {
+    const cartItems = getLocalStorage("so-cart") || [];
+    const count = cartItems.length;
+    let badge = document.querySelector(".cart-count");
+    if (!badge) {
+        badge = document.createElement("span");
+        badge.classList.add("cart-count");
+        document.querySelector(".cart").appendChild(badge);
+    }
+    badge.textContent = count > 0 ? count : "";
+    badge.style.display = count > 0 ? "flex" : "none";
 }

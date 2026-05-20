@@ -1,16 +1,18 @@
 // main.js
-// Entry point for the home page (index.html).
-// Reads tents data and renders the product list dynamically.
-
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
+import { updateCartCount } from "./ProductDetails.mjs";
+import Alert from "./Alert.js";
 
-// Create the data source for the tents category.
+// Render product list
 const dataSource = new ProductData("tents");
-
-// Target the <ul> element in index.html where cards will be inserted.
 const listElement = document.querySelector(".product-list");
-
-// Create a ProductList instance and initialise it.
 const myList = new ProductList("tents", dataSource, listElement);
 myList.init();
+
+// Show cart count badge on page load
+updateCartCount();
+
+// Show alerts
+const alert = new Alert();
+alert.init();
