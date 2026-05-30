@@ -8,13 +8,27 @@ loadHeaderFooter(updateCartCount);
 
 const category = getParam("category");
 
-// Update page title to include category name
+// Map URL category param to the exact API category name
+const categoryMap = {
+    "tents": "tents",
+    "backpacks": "backpacks",
+    "sleeping-bags": "sleeping-bags",
+    "hammocks": "hammocks",
+};
+
+const apiCategory = categoryMap[category] || category;
+
+// Update page title
 const titleEl = document.querySelector(".product-list-title");
 if (titleEl && category) {
-    titleEl.textContent = `Top Products: ${category.charAt(0).toUpperCase() + category.slice(1).replace("-", " ")}`;
+    const displayName = category
+        .split("-")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ");
+    titleEl.textContent = `Top Products: ${displayName}`;
 }
 
 const dataSource = new ProductData();
 const listElement = document.querySelector(".product-list");
-const myList = new ProductList(category, dataSource, listElement);
+const myList = new ProductList(apiCategory, dataSource, listElement);
 myList.init();

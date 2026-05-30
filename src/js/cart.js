@@ -1,4 +1,3 @@
-// cart.js — cart page entry point
 import { getLocalStorage, setLocalStorage, loadHeaderFooter } from './utils.mjs';
 import { updateCartCount } from './ProductDetails.mjs';
 
@@ -33,7 +32,7 @@ function cartItemTemplate(item) {
   return `<li class="cart-card divider">
   <button class="cart-card__remove" data-id="${item.Id}" aria-label="Remove item">✕</button>
   <a href="#" class="cart-card__image">
-    <img src="${item.Images.PrimaryMedium}" alt="${item.Name}" />
+    <img src="${item.Image}" alt="${item.Name}" />
   </a>
   <a href="#">
     <h2 class="card__name">${item.Name}</h2>

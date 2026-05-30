@@ -1,7 +1,5 @@
 // ProductData.mjs
 
-const baseURL = import.meta.env.VITE_SERVER_URL;
-
 function convertToJson(res) {
   if (res.ok) {
     return res.json();
@@ -11,18 +9,26 @@ function convertToJson(res) {
 }
 
 export default class ProductData {
-  // Category and path removed from constructor — passed to getData() instead
   constructor() { }
 
   async getData(category) {
-    const response = await fetch(`${baseURL}products/search/${category}`);
+    const response = await fetch(`/json/${category}.json`);
     const data = await convertToJson(response);
-    return data.Result;
+    return data;
   }
 
   async findProductById(id) {
-    const response = await fetch(`${baseURL}product/${id}`);
-    const data = await convertToJson(response);
-    return data.Result;
+    // We don't know the category here, so try all known categories
+    const categories = ["tents", "backpacks", "sleeping-bags", "hammocks"];
+    for (const category of categories) {
+      try {
+        const products = await this.getData(category);
+        const found = products.find((item) => item.Id === id);
+        if (found) return found;
+      } catch (e) {
+        // continue to next category
+      }
+    }
+    return null;
   }
 }

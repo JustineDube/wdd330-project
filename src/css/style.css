@@ -370,3 +370,41 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+/* ── Category grid on home page ── */
+.category-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.category-list a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--dark-grey);
+  border: 1px solid var(--light-grey);
+  border-radius: 4px;
+  padding: 1rem;
+  width: 140px;
+  transition: box-shadow 0.2s;
+}
+
+.category-list a:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.category-list img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.category-list p {
+  margin: 0.5rem 0 0;
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 0;
+}
