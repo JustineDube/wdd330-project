@@ -1,17 +1,11 @@
-// main.js
-import ProductData from "./ProductData.mjs";
-import ProductList from "./ProductList.mjs";
+// main.js — home page entry point
+import { loadHeaderFooter } from "./utils.mjs";
 import { updateCartCount } from "./ProductDetails.mjs";
 import Alert from "./Alert.js";
 
-// Render product list
-const dataSource = new ProductData("tents");
-const listElement = document.querySelector(".product-list");
-const myList = new ProductList("tents", dataSource, listElement);
-myList.init();
-
-// Show cart count badge on page load
-updateCartCount();
+// Load dynamic header and footer; pass updateCartCount as callback
+// so the cart badge is updated after the header HTML is in the DOM.
+loadHeaderFooter(updateCartCount);
 
 // Show alerts
 const alert = new Alert();

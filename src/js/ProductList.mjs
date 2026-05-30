@@ -1,18 +1,14 @@
 // ProductList.mjs
 import { renderListWithTemplate } from "./utils.mjs";
 
-/**
- * Template function that returns an HTML string for one product card.
- * Shows a "Sale" badge if FinalPrice is less than SuggestedRetailPrice.
- */
 function productCardTemplate(product) {
   const isDiscounted = product.FinalPrice < product.SuggestedRetailPrice;
 
   return `<li class="product-card">
-    <a href="product_pages/?product=${product.Id}">
+    <a href="/product_pages/?product=${product.Id}">
       ${isDiscounted ? '<span class="product-card__discount-badge">Sale</span>' : ''}
       <img
-        src="${product.Image}"
+        src="${product.Images.PrimaryMedium}"
         alt="Image of ${product.NameWithoutBrand}"
       />
       <h2 class="card__brand">${product.Brand.Name}</h2>
@@ -31,17 +27,11 @@ export default class ProductList {
   }
 
   async init() {
-    const list = await this.dataSource.getData();
+    const list = await this.dataSource.getData(this.category);
     this.renderList(list);
   }
 
   renderList(list) {
-    renderListWithTemplate(
-      productCardTemplate,
-      this.listElement,
-      list,
-      "afterbegin",
-      true,
-    );
+    renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", true);
   }
 }

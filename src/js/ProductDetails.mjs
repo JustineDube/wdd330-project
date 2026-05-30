@@ -1,10 +1,6 @@
 // ProductDetails.mjs
 import { setLocalStorage, getLocalStorage } from "./utils.mjs";
 
-/**
- * Generates the HTML markup for the product detail view.
- * Shows discount info if FinalPrice < SuggestedRetailPrice.
- */
 function productDetailsTemplate(product) {
     const isDiscounted = product.FinalPrice < product.SuggestedRetailPrice;
     const savings = (product.SuggestedRetailPrice - product.FinalPrice).toFixed(2);
@@ -16,11 +12,7 @@ function productDetailsTemplate(product) {
     <section class="product-detail">
       <h3>${product.Brand.Name}</h3>
       <h2 class="divider">${product.NameWithoutBrand}</h2>
-      <img
-        class="divider"
-        src="${product.Image}"
-        alt="${product.NameWithoutBrand}"
-      />
+      <img class="divider" src="${product.Images.PrimaryLarge}" alt="${product.NameWithoutBrand}" />
       <p class="product-card__price">$${product.FinalPrice}
         ${isDiscounted ? `<span class="product-card__was-price">Was: $${product.SuggestedRetailPrice}</span>` : ''}
       </p>
@@ -35,6 +27,22 @@ function productDetailsTemplate(product) {
         <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
       </div>
     </section>`;
+}
+
+export function updateCartCount() {
+    const cartItems = getLocalStorage("so-cart") || [];
+    const count = cartItems.length;
+    let badge = document.querySelector(".cart-count");
+    if (!badge) {
+        badge = document.createElement("span");
+        badge.classList.add("cart-count");
+        const cartDiv = document.querySelector(".cart");
+        if (cartDiv) cartDiv.appendChild(badge);
+    }
+    if (badge) {
+        badge.textContent = count > 0 ? count : "";
+        badge.style.display = count > 0 ? "flex" : "none";
+    }
 }
 
 export default class ProductDetails {
@@ -56,7 +64,6 @@ export default class ProductDetails {
         const cartItems = getLocalStorage("so-cart") || [];
         cartItems.push(this.product);
         setLocalStorage("so-cart", cartItems);
-        // Update cart count badge in header
         updateCartCount();
     }
 
@@ -65,25 +72,7 @@ export default class ProductDetails {
         if (detailContainer) {
             detailContainer.innerHTML = productDetailsTemplate(this.product);
         } else {
-            document
-                .querySelector("main")
-                .insertAdjacentHTML("afterbegin", productDetailsTemplate(this.product));
+            document.querySelector("main").insertAdjacentHTML("afterbegin", productDetailsTemplate(this.product));
         }
     }
-}
-
-/**
- * Reads cart from localStorage and updates the superscript badge on the cart icon.
- */
-export function updateCartCount() {
-    const cartItems = getLocalStorage("so-cart") || [];
-    const count = cartItems.length;
-    let badge = document.querySelector(".cart-count");
-    if (!badge) {
-        badge = document.createElement("span");
-        badge.classList.add("cart-count");
-        document.querySelector(".cart").appendChild(badge);
-    }
-    badge.textContent = count > 0 ? count : "";
-    badge.style.display = count > 0 ? "flex" : "none";
 }

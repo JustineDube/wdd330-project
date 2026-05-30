@@ -1,15 +1,12 @@
-// product.js
-// Entry point for the product detail page.
-// Pulls the product ID from the URL, creates the data source and detail
-// view instances, then calls init() to kick everything off.
-
-import { getParam } from "./utils.mjs";
+// product.js — product detail page entry point
+import { getParam, loadHeaderFooter } from "./utils.mjs";
+import { updateCartCount } from "./ProductDetails.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
-const productId = getParam("product");
-const dataSource = new ProductData("tents");
+loadHeaderFooter(updateCartCount);
 
+const productId = getParam("product");
+const dataSource = new ProductData();
 const product = new ProductDetails(productId, dataSource);
 product.init();
-
