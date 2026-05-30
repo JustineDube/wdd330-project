@@ -408,3 +408,271 @@ footer {
   font-size: 0.9rem;
   padding: 0;
 }
+/* ── Feature 1: Search form in navbar ── */
+header {
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+  max-width: 300px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  margin: 0;
+  display: inline;
+}
+
+/* ── Feature 2: Quantity input in cart ── */
+.cart-card__quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  grid-row: 1;
+  grid-column: 3;
+}
+
+.cart-qty {
+  width: 50px;
+  padding: 0.2rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 3px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ── Feature 3: Sort controls ── */
+.product-list-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.sort-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.sort-control select {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* ── Feature 6: Breadcrumb ── */
+.breadcrumb {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  color: var(--dark-grey);
+  background: #f8f8f8;
+  border-bottom: 1px solid var(--light-grey);
+}
+
+.breadcrumb a {
+  color: var(--tertiary-color);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-count {
+  color: #888;
+  font-style: italic;
+}
+
+/* ── Feature 7: Discount flag on product detail ── */
+.product-detail__discount-flag {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.discount-pct {
+  background-color: #c0392b;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.discount-savings {
+  color: #c0392b;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* ── Category grid ── */
+.category-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.category-list a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--dark-grey);
+  border: 1px solid var(--light-grey);
+  border-radius: 4px;
+  padding: 1rem;
+  width: 140px;
+  transition: box-shadow 0.2s;
+}
+
+.category-list a:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.category-list img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.category-list p {
+  margin: 0.5rem 0 0;
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+/* ── Utility ── */
+.hide {
+  display: none;
+}
+
+/* ── Cart count badge ── */
+.cart {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #e67e22;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: bold;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  pointer-events: none;
+}
+
+/* ── Cart footer total ── */
+.cart-footer {
+  padding: 1rem 0;
+  text-align: right;
+  border-top: 2px solid var(--secondary-color);
+  margin-top: 1rem;
+}
+
+.cart-total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+/* ── Remove button ── */
+.cart-card {
+  position: relative;
+}
+
+.cart-card__remove {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #c0392b;
+  font-weight: bold;
+  padding: 0;
+}
+
+.cart-card__remove:hover {
+  color: #922b21;
+}
+
+/* ── Discount badges ── */
+.product-card__discount-badge {
+  display: inline-block;
+  background-color: #c0392b;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+.product-card__was-price {
+  font-size: 0.85rem;
+  color: #888;
+  text-decoration: line-through;
+  margin-left: 0.5rem;
+}
+
+.cart-card__discount {
+  grid-column: 2 / 4;
+  color: #c0392b;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-top: 0;
+}
+
+/* ── Alert section ── */
+.alert-list {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.alert-list p {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  font-weight: bold;
+  text-align: center;
+  font-size: 0.95rem;
+}

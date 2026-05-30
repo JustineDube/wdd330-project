@@ -15,39 +15,21 @@ export function getLocalStorage(key) {
 }
 
 export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
-  if (clear) {
-    parentElement.innerHTML = "";
-  }
+  if (clear) parentElement.innerHTML = "";
   const htmlStrings = list.map(templateFn);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
 
-// ── Team Activity W03 additions ──
-
-/**
- * Renders a single template string into a parent element.
- * Optionally calls a callback with data after rendering.
- */
 export function renderWithTemplate(template, parentElement, data, callback) {
   parentElement.innerHTML = template;
-  if (callback) {
-    callback(data);
-  }
+  if (callback) callback(data);
 }
 
-/**
- * Fetches an HTML file at the given path and returns it as a string.
- */
 export async function loadTemplate(path) {
   const res = await fetch(path);
-  const template = await res.text();
-  return template;
+  return await res.text();
 }
 
-/**
- * Loads header and footer partials into their respective placeholder elements.
- * Accepts an optional callback for post-render work (e.g. updating cart count).
- */
 export async function loadHeaderFooter(callback) {
   const headerTemplate = await loadTemplate("/partials/header.html");
   const footerTemplate = await loadTemplate("/partials/footer.html");
@@ -57,4 +39,20 @@ export async function loadHeaderFooter(callback) {
 
   renderWithTemplate(headerTemplate, headerElement, null, callback);
   renderWithTemplate(footerTemplate, footerElement);
+
+  // Feature 1: Attach search form handler after header loads
+  attachSearchHandler();
+}
+
+// Feature 1: Search — navigates to product-listing page with search query
+function attachSearchHandler() {
+  const form = document.getElementById("search-form");
+  if (!form) return;
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const query = document.getElementById("search-input").value.trim();
+    if (query) {
+      window.location.href = `/product-listing/?search=${encodeURIComponent(query)}`;
+    }
+  });
 }

@@ -11,9 +11,24 @@
 <body>
     <header class="divider" id="main-header"></header>
 
+    <!-- Feature 6: Breadcrumb -->
+    <nav class="breadcrumb" aria-label="breadcrumb"></nav>
+
     <main class="divider">
         <section class="products">
-            <h2 class="product-list-title">Top Products</h2>
+            <div class="product-list-controls">
+                <h2 class="product-list-title">Top Products</h2>
+                <!-- Feature 3: Sort -->
+                <div class="sort-control">
+                    <label for="sort-select">Sort by:</label>
+                    <select id="sort-select">
+                        <option value="">Default</option>
+                        <option value="name">Name (A–Z)</option>
+                        <option value="price-asc">Price (Low–High)</option>
+                        <option value="price-desc">Price (High–Low)</option>
+                    </select>
+                </div>
+            </div>
             <ul class="product-list"></ul>
         </section>
     </main>
