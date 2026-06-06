@@ -1,5 +1,6 @@
 // ProductDetails.mjs
 import { setLocalStorage, getLocalStorage } from "./utils.mjs";
+import { addToWishlist, isInWishlist, updateWishlistCount } from "./wishlist.mjs";
 
 // Feature 5: Pick image based on screen width
 function getImageSrc(product) {
@@ -36,6 +37,7 @@ function productDetailsTemplate(product) {
       <p class="product__description">${product.DescriptionHtmlSimple}</p>
       <div class="product-detail__add">
         <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+        <button id="addToWishlist" data-id="${product.Id}" class="btn--wishlist">\u2661 Add to Wish List</button>
       </div>
     </section>`;
 }
@@ -70,6 +72,9 @@ export default class ProductDetails {
     document
       .getElementById("addToCart")
       .addEventListener("click", this.addProductToCart.bind(this));
+    const wishBtn = document.getElementById("addToWishlist");
+    if (wishBtn) wishBtn.addEventListener("click", this.toggleWishlist.bind(this));
+    this.syncWishlistBtn();
   }
 
   // Feature 4: Duplicate check — increment quantity if already in cart
@@ -88,6 +93,29 @@ export default class ProductDetails {
     const btn = document.getElementById("addToCart");
     btn.textContent = existing ? "Quantity Updated!" : "Added!";
     setTimeout(() => { btn.textContent = "Add to Cart"; }, 1500);
+  }
+
+  toggleWishlist() {
+    const btn = document.getElementById("addToWishlist");
+    if (isInWishlist(this.product.Id)) {
+      import("./wishlist.mjs").then(({ removeFromWishlist, updateWishlistCount }) => {
+        removeFromWishlist(this.product.Id);
+        updateWishlistCount();
+        this.syncWishlistBtn();
+      });
+    } else {
+      addToWishlist(this.product);
+      updateWishlistCount();
+      this.syncWishlistBtn();
+    }
+  }
+
+  syncWishlistBtn() {
+    const btn = document.getElementById("addToWishlist");
+    if (!btn) return;
+    const inList = isInWishlist(this.product.Id);
+    btn.textContent = inList ? "\u2665 In Wish List" : "\u2661 Add to Wish List";
+    btn.classList.toggle("btn--wishlist-active", inList);
   }
 
   renderProductDetails() {
