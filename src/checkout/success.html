@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sleep Outside | Order Successful</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+    <header class="divider" id="main-header"></header>
+
+    <main class="divider">
+        <section class="success-page">
+            <div class="success-icon">✅</div>
+            <h2>Order Placed Successfully!</h2>
+            <p>Thank you for your purchase. Your order has been received and is being processed.</p>
+            <p>You will receive a confirmation email shortly.</p>
+            <a href="/index.html" class="continue-btn">Continue Shopping</a>
+        </section>
+    </main>
+
+    <footer class="divider" id="main-footer"></footer>
+    <script type="module">
+        import { loadHeaderFooter } from '/js/utils.mjs';
+        import { updateCartCount } from '/js/ProductDetails.mjs';
+        loadHeaderFooter(updateCartCount);
+    </script>
+</body>
+
+</html>

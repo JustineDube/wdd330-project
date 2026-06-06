@@ -12,13 +12,83 @@
   <header class="divider" id="main-header"></header>
 
   <main class="divider">
-    <section class="products">
-      <h2>Review &amp; Place your Order</h2>
-    </section>
+    <div class="checkout-wrapper">
+
+      <!-- Order Summary -->
+      <section class="order-summary">
+        <h2>Order Summary</h2>
+        <table class="summary-table">
+          <tr>
+            <td>Subtotal</td>
+            <td id="subtotal">$0.00</td>
+          </tr>
+          <tr>
+            <td>Tax (6%)</td>
+            <td id="tax">—</td>
+          </tr>
+          <tr>
+            <td>Shipping</td>
+            <td id="shipping">—</td>
+          </tr>
+          <tr class="summary-total">
+            <td><strong>Order Total</strong></td>
+            <td id="order-total"><strong>—</strong></td>
+          </tr>
+        </table>
+        <p class="summary-note">Tax and shipping calculated after zip code is entered.</p>
+      </section>
+
+      <!-- Checkout Form -->
+      <section class="checkout-form-section">
+        <h2>Shipping &amp; Payment</h2>
+        <form id="checkout-form" novalidate>
+
+          <fieldset>
+            <legend>Customer Name</legend>
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" required placeholder="First Name" />
+
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" required placeholder="Last Name" />
+          </fieldset>
+
+          <fieldset>
+            <legend>Address</legend>
+            <label for="street">Street Address</label>
+            <input type="text" id="street" name="street" required placeholder="123 Main St" />
+
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" required placeholder="City" />
+
+            <label for="state">State</label>
+            <input type="text" id="state" name="state" required placeholder="State" maxlength="2" />
+
+            <label for="zip">Zip Code</label>
+            <input type="text" id="zip" name="zip" required placeholder="Zip Code" maxlength="5" pattern="\d{5}" />
+          </fieldset>
+
+          <fieldset>
+            <legend>Payment</legend>
+            <label for="card">Credit Card Number</label>
+            <input type="text" id="card" name="card" required placeholder="16-digit card number" maxlength="16"
+              pattern="\d{16}" />
+
+            <label for="expiration">Expiration Date</label>
+            <input type="month" id="expiration" name="expiration" required />
+
+            <label for="code">Security Code</label>
+            <input type="text" id="code" name="code" required placeholder="3-digit code" maxlength="3"
+              pattern="\d{3}" />
+          </fieldset>
+
+          <button type="submit" class="checkout-submit-btn">Place Order</button>
+        </form>
+      </section>
+
+    </div>
   </main>
 
   <footer class="divider" id="main-footer"></footer>
-
   <script type="module" src="/js/checkout.js"></script>
 </body>
 

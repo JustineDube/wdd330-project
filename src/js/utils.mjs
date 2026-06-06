@@ -40,11 +40,9 @@ export async function loadHeaderFooter(callback) {
   renderWithTemplate(headerTemplate, headerElement, null, callback);
   renderWithTemplate(footerTemplate, footerElement);
 
-  // Feature 1: Attach search form handler after header loads
   attachSearchHandler();
 }
 
-// Feature 1: Search — navigates to product-listing page with search query
 function attachSearchHandler() {
   const form = document.getElementById("search-form");
   if (!form) return;
@@ -55,4 +53,26 @@ function attachSearchHandler() {
       window.location.href = `/product-listing/?search=${encodeURIComponent(query)}`;
     }
   });
+}
+
+// Individual Activity W04: Alert message utility
+export function alertMessage(message, scroll = true) {
+  // Remove any existing alerts first
+  document.querySelectorAll('.alert').forEach((a) => a.remove());
+
+  const alert = document.createElement('div');
+  alert.classList.add('alert');
+  alert.innerHTML = `<p>${message}</p><span class="alert-close">✕</span>`;
+
+  // Remove alert when X is clicked
+  alert.addEventListener('click', function (e) {
+    if (e.target.classList.contains('alert-close') || e.target.tagName === 'SPAN') {
+      document.querySelector('main').removeChild(this);
+    }
+  });
+
+  const main = document.querySelector('main');
+  main.prepend(alert);
+
+  if (scroll) window.scrollTo(0, 0);
 }
